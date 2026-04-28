@@ -3,7 +3,7 @@ import { createContext } from "react";
 const WatchlistContext = createContext({
     watchlist: [],
     setWatchlist: () => {},
-    addMovie: (movie) => {},
+    addMovie: () => {},
     deleteMovie: () => {}
 
 })

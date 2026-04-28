@@ -1,12 +1,13 @@
 import { useContext, useState } from "react"
 import WatchlistContext from "../context/WatchlistContext"
+import { Link } from "react-router"
 
 const Watchlist = () => {
 
     const {watchlist, setWatchlist, deleteMovie} = useContext(WatchlistContext)
     // console.log(watchlist)
-    const [titleValue, setTitleValue] = useState("")
-    const [genreValue, setGenreValue] = useState("")
+    const [title, setTitle] = useState("")
+    const [genre, setGenre] = useState("")
 
     const toggleWatched = (id) => {
 
@@ -32,10 +33,10 @@ const Watchlist = () => {
     }
 
     const filteredMovies = () => {
-        if (titleValue !== "") {
-            return filterMovie(titleValue, "title")
-        } else if (genreValue !== "") {
-            return filterMovie(genreValue, "genre")
+        if (title !== "") {
+            return filterMovie(title, "title")
+        } else if (genre !== "") {
+            return filterMovie(genre, "genre")
         } else {
             return watchlist
         }
@@ -45,17 +46,17 @@ const Watchlist = () => {
 
     return (
         <>
-            <h2>Watchlist</h2>
+            <h2>Movies</h2>
             {watchlist.length > 0 ? (
                 <>
-                    <h3>Filter Transactions:</h3>
+                    <h3>Filter Movies:</h3>
                     <form>
                         <div>
                             <label>Filter by Title: </label>
                             <input 
                                 type="text"
-                                value={titleValue}
-                                onChange={(event) => setTitleValue(event.target.value)}
+                                value={title}
+                                onChange={(event) => setTitle(event.target.value)}
                             />
                         </div>
                         <h3>OR:</h3>
@@ -63,11 +64,14 @@ const Watchlist = () => {
                             <label>Filter by Genre: </label>
                             <input 
                                 type="text"
-                                value={genreValue}
-                                onChange={(event) => setGenreValue(event.target.value)}
+                                value={genre}
+                                onChange={(event) => setGenre(event.target.value)}
                             />
                         </div>
                     </form>
+                    <br />
+                    <Link to="/movies/new"><button>Add a New Movie</button></Link>
+                    <h3>Watchlist</h3>
                     <ol>
                         {filteredWatchlist.map((movie) => (
                             <li key={movie.id}>
@@ -80,7 +84,10 @@ const Watchlist = () => {
                     </ol>
                 </>
             ) : (
-                <h2>List is Empty</h2>
+                <>
+                    <h2>List is Empty</h2>
+                    <Link to="/movies/new"><button>Add a New Movie</button></Link>
+                </>
             )}
         </>
     )

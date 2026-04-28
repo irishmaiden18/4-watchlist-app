@@ -5,8 +5,8 @@ const Watchlist = () => {
 
     const {watchlist, setWatchlist, deleteMovie} = useContext(WatchlistContext)
     // console.log(watchlist)
-    const [title, setTitle] = useState("")
-    const [genre, setGenre] = useState("")
+    const [titleValue, setTitleValue] = useState("")
+    const [genreValue, setGenreValue] = useState("")
 
     const toggleWatched = (id) => {
 
@@ -24,33 +24,18 @@ const Watchlist = () => {
         setWatchlist(updatedWatchlist)
     }
 
-    const filterTitle = (filterBy) => {
-        if (filterBy === "") {
-            return watchlist
-        } else {
-            const filteredMovies = watchlist.filter((movie) => {
-                return movie.title === filterBy
-            })
-            return filteredMovies
-        }
-    }
-
-    const filterGenre = (filterBy) => {
-        if (filterBy === "") {
-            return watchlist
-        } else {
-            const filteredMovies = watchlist.filter((movie) => {
-                return movie.genre === filterBy
-            })
-            return filteredMovies
-        }
+    const filterMovie = (filterBy, property) => {
+        const filteredMovies = watchlist.filter((movie) => {
+            return movie[property] === filterBy
+        })
+        return filteredMovies
     }
 
     const filteredMovies = () => {
-        if (title !== "") {
-            return filterTitle(title)
-        } else if (genre !== "") {
-            return filterGenre(genre)
+        if (titleValue !== "") {
+            return filterMovie(titleValue, "title")
+        } else if (genreValue !== "") {
+            return filterMovie(genreValue, "genre")
         } else {
             return watchlist
         }
@@ -69,8 +54,8 @@ const Watchlist = () => {
                             <label>Filter by Title: </label>
                             <input 
                                 type="text"
-                                value={title}
-                                onChange={(event) => setTitle(event.target.value)}
+                                value={titleValue}
+                                onChange={(event) => setTitleValue(event.target.value)}
                             />
                         </div>
                         <h3>OR:</h3>
@@ -78,8 +63,8 @@ const Watchlist = () => {
                             <label>Filter by Genre: </label>
                             <input 
                                 type="text"
-                                value={genre}
-                                onChange={(event) => setGenre(event.target.value)}
+                                value={genreValue}
+                                onChange={(event) => setGenreValue(event.target.value)}
                             />
                         </div>
                     </form>

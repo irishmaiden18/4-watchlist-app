@@ -27,7 +27,7 @@ function App() {
       addMovie: addMovie,
       deleteMovie: deleteMovie
     }}>
-      <h1>Watchlist App</h1>
+      <h1>Watchlist App 2026</h1>
 
       <Navbar/>
 
